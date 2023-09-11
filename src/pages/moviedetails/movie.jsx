@@ -7,10 +7,10 @@ import {BsFillPlayBtnFill} from 'react-icons/bs'
 // import {MdPlaylistAddCheck} from 'react-icons/md'
 
 import {auth, provider, db} from '../../components/googleSignin/Config'
-import { collection, addDoc } from "firebase/firestore"
+import { collection, addDoc, query, getDocs, where } from "firebase/firestore"
 
 import { Circle } from 'rc-progress';
-import { notifyAddedWatchlist, notifymarkedFav, notifymovieplaying } from "../../App"
+import { notifyAddedWatchlist, notifyLoginnotFound, notifyalreadyexists, notifymarkedFav, notifymovieplaying } from "../../App"
 
 
 export default function Movie(){
@@ -18,36 +18,83 @@ export default function Movie(){
     const { id } = useParams()
     const rating = currentMovieDetail? currentMovieDetail.vote_average : 0
 
+    const userEmail = sessionStorage.getItem('userEmail');
+
     const handlePlay = ()=>{
         notifymovieplaying();
     }
-
-    const handleWatchlistadd = async(e)=>{
-        e.preventDefault()
-        const userId = auth.currentUser.uid;
-        console.log(userId)
-        console.log("user_id:", userId);
-        await addDoc(collection(db, "watchlist"), {
-            MovieDetail: currentMovieDetail,
-            userId: userId,
-
-        });
-       
-        notifyAddedWatchlist();
-    }
     
-    const handleFav = async(e)=>{
-        e.preventDefault()
-        const userId = auth.currentUser.uid;
-        console.log("user_id:", userId);
-        await addDoc(collection(db, "favourites"), {
-            MovieDetail: currentMovieDetail,
-            userId: userId,
-
-        });
-        
-        notifymarkedFav();
-    }
+    const handleWatchlistadd = async (e) => {
+        e.preventDefault();
+      
+        if (userEmail !== '') {
+          const userId = auth.currentUser.uid;
+          const movieId = currentMovieDetail.id;
+      
+          // Query Firestore to check if the movie is already in the watchlist
+          const watchlistRef = collection(db, 'watchlist');
+          const querySnapshot = await getDocs(
+            query(
+              watchlistRef,
+              where('userId', '==', userId),
+              where('MovieDetail.id', '==', movieId)
+            )
+          );
+      
+          if (querySnapshot.empty) {
+            // Movie is not in the watchlist, so add it
+            await addDoc(watchlistRef, {
+              MovieDetail: currentMovieDetail,
+              userId: userId,
+            });
+      
+            notifyAddedWatchlist();
+          } else {
+            // Movie is already in the watchlist, handle accordingly (e.g., show a message)
+            console.log('Movie is already in the watchlist.');
+            notifyalreadyexists();
+            
+          }
+        } else {
+          notifyLoginnotFound();
+        }
+      };
+      
+      const handleFav = async (e) => {
+        e.preventDefault();
+      
+        if (userEmail !== '') {
+          const userId = auth.currentUser.uid;
+          const movieId = currentMovieDetail.id;
+      
+          // Query Firestore to check if the movie is already in favorites
+          const favoritesRef = collection(db, 'favourites');
+          const querySnapshot = await getDocs(
+            query(
+              favoritesRef,
+              where('userId', '==', userId),
+              where('MovieDetail.id', '==', movieId)
+            )
+          );
+      
+          if (querySnapshot.empty) {
+            // Movie is not in favorites, so add it
+            await addDoc(favoritesRef, {
+              MovieDetail: currentMovieDetail,
+              userId: userId,
+            });
+      
+            notifymarkedFav();
+          } else {
+            // Movie is already in favorites, handle accordingly (e.g., show a message)
+            console.log('Movie is already in favorites.');
+            notifyalreadyexists()
+          }
+        } else {
+          notifyLoginnotFound();
+        }
+      };
+      
 
     
 

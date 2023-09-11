@@ -64,6 +64,18 @@ import Watchlater from "./pages/watchlater/Watchlater";
       theme: "colored",
       });
   }
+  export const notifyalreadyexists = ()=>{
+    toast.info('Movie already exists', {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      });
+  }
   export const notifyRemovedWatchlist = ()=>{
     toast.info('Movie removed from watchlist', {
       position: "top-center",
@@ -113,6 +125,20 @@ import Watchlater from "./pages/watchlater/Watchlater";
       progress: undefined,
       theme: "colored",
       });
+  };
+
+  export const notifyLoginnotFound = () => {
+    toast.error('Login to add movies to watchlist or favourites', {
+      position: "top-center",
+      autoClose: 3000,
+      hideProgressBar: false,
+      closeOnClick: true,
+      pauseOnHover: true,
+      draggable: true,
+      progress: undefined,
+      theme: "colored",
+      });
+  
   };
 
 function App() {
