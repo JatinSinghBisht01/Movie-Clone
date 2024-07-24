@@ -4,7 +4,7 @@ import {getAuth, GoogleAuthProvider} from "firebase/auth"
 import {getFirestore} from 'firebase/firestore'
 
 const firebaseConfig = {
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY ,
+  apiKey: AIzaSyCBb6tmZlWH6KMOM0kcLchO8X5l_wk0BR8 ,
   authDomain: "filmax-1c22f.firebaseapp.com",
   projectId: "filmax-1c22f",
   storageBucket: "filmax-1c22f.appspot.com",

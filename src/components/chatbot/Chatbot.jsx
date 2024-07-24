@@ -44,7 +44,7 @@ export default function Chatbot() {
   const [userInput, setUserInput] = useState("");
   const [isLoading, setIsLoading] = useState(false);
 
-  const apiKey = process.env.REACT_APP_GEMINI_API_KEY;
+  const apiKey = AIzaSyAXozVKSMNMDrGv05hihGyW3dcqSymzUUo;
 
   const handleSendMessage = async () => {
     if (userInput.trim() !== "") {
