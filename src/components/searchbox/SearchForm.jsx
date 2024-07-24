@@ -32,7 +32,7 @@ const [ search, setSearch ] = useState('');
             type='text'
             onChange={handleChange}
             value={search} 
-            className='italic focus:outline-none focus:text-black'
+            className='italic focus:outline-none text-black'
             placeholder='Search Movies...'
           />
           <button type='submit' className='' onClick={handleSubmit}>

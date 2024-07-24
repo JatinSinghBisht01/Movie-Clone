@@ -50,7 +50,7 @@ export default function Home() {
                                     <div className=" flex md:mb-3 text-xl md:text-3xl">
                                         {movie ? movie.release_date : ""}
                                         <span className=" ml-6 md:ml-12 flex">
-                                            {movie ? movie.vote_average :""}
+                                            {movie ? movie.vote_average.toFixed(1) : 10}
                                             <AiFillStar className=' text-3xl md:text-4xl' />{" "}
                                         </span>
                                     </div>

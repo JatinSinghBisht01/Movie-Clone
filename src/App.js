@@ -11,6 +11,7 @@ import 'react-toastify/dist/ReactToastify.css';
 import Results from "./pages/searchresults/Results";
 import Favourites from "./pages/favourites/Favourites";
 import Watchlater from "./pages/watchlater/Watchlater";
+import Chatbot from "./components/chatbot/Chatbot";
 
   export const notifyLogin = () => {
     toast.success('You are logged in', {
@@ -169,7 +170,7 @@ function App() {
         pauseOnHover
         theme="colored"
         />
-      
+      <Chatbot/>
     </div>
   );
 }

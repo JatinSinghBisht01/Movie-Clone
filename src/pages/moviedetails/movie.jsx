@@ -2,11 +2,11 @@ import React, {useEffect, useState} from "react"
 import { useParams } from "react-router-dom"
 import {FaExternalLinkAlt} from 'react-icons/fa'
 import {TbPlaylistAdd} from 'react-icons/tb'
-import {AiOutlineHeart, AiFillHeart} from 'react-icons/ai'
+import {AiOutlineHeart} from 'react-icons/ai'
 import {BsFillPlayBtnFill} from 'react-icons/bs'
 // import {MdPlaylistAddCheck} from 'react-icons/md'
 
-import {auth, provider, db} from '../../components/googleSignin/Config'
+import {auth, db} from '../../components/googleSignin/Config'
 import { collection, addDoc, query, getDocs, where } from "firebase/firestore"
 
 import { Circle } from 'rc-progress';
@@ -16,7 +16,7 @@ import { notifyAddedWatchlist, notifyLoginnotFound, notifyalreadyexists, notifym
 export default function Movie(){
     const [currentMovieDetail, setMovie] = useState()
     const { id } = useParams()
-    const rating = currentMovieDetail? currentMovieDetail.vote_average : 0
+    const rating = currentMovieDetail? currentMovieDetail.vote_average : 10
 
     const userEmail = sessionStorage.getItem('userEmail');
 
@@ -137,7 +137,7 @@ export default function Movie(){
 
                             </div>
 
-                            {currentMovieDetail ? currentMovieDetail.vote_average + "/10": ""}
+                            {currentMovieDetail ? currentMovieDetail.vote_average.toFixed(2) + "/10": ""}
                              {/* <AiFillStar className='text-lg' /> */}
                             <span className="ml-6">{currentMovieDetail ? "(" + currentMovieDetail.vote_count + ") votes" : ""}</span>
                         </div>  

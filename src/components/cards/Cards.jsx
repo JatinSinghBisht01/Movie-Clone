@@ -36,7 +36,7 @@ export default function Cards({movie}) {
                     <div className=" font-bold">{movie?movie.original_title:""}</div>
                     <div className=" text-sm">
                         {movie?movie.release_date:""}
-                        <span className=" float-right flex text-sm">{movie?movie.vote_average:""}<AiFillStar className='text-lg' /></span>
+                        <span className=" float-right flex text-sm">{movie?movie.vote_average.toFixed(1): 10}<AiFillStar className='text-lg' /></span>
                     </div>
                     <div className=" text-xs italic font-normal mb-1">{movie ? movie.overview.slice(0,118)+"..." : ""}</div>
                     </div>
